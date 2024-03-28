@@ -14,7 +14,7 @@ export function Home(){
                 <InfoContainer>
                         <HeaderContainer>
                             <h2>Carlos Eduardo</h2>
-                            <a href="https://github.com/CarlosSFr">GITHUB <span><FontAwesomeIcon icon={faArrowUpRightFromSquare} /></span></a>
+                            <a href="https://github.com/CarlosSFr" target="_blank">GITHUB <span><FontAwesomeIcon icon={faArrowUpRightFromSquare} /></span></a>
                         </HeaderContainer>
                         <p> Tristique volutpat pulvinar vel massa, 
                             pellentesque egestas. Eu viverra massa quam 
