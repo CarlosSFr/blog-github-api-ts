@@ -5,8 +5,19 @@ import { faBuilding, faUserGroup, faArrowUpRightFromSquare } from "@fortawesome/
 import { SearchInput } from "./components/SearchInput"
 import { Posts } from "../../components/Posts"
 import { NavLink } from "react-router-dom"
+import { useState } from "react"
 
 export function Home(){
+
+    const [ user, setUser ] = useState([])
+
+    fetch("https://api.github.com/users/CarlosSFr")
+    .then(response => response.json())
+    .then(data => {
+        setUser(data)
+        console.log(user)
+    })
+
     return (
         <MainContainer>
             <ProfileContainer>
