@@ -5,26 +5,47 @@ import { faBuilding, faUserGroup, faArrowUpRightFromSquare } from "@fortawesome/
 import { SearchInput } from "./components/SearchInput"
 import { Posts } from "../../components/Posts"
 import { NavLink } from "react-router-dom"
+import { useEffect, useState } from "react"
+
+interface UserInterface {
+    login: string,
+    avatar_url: string,
+    company: string,
+    followers: number,
+}
 
 export function Home(){
+
+    const [ user, setUser ] = useState<UserInterface | undefined>(undefined)
+
+    useEffect(() => {
+
+        fetch("https://api.github.com/users/CarlosSFr")
+        .then(response => response.json())
+        .then(data => {
+            setUser(data)
+        })
+        
+    }, [])
+    
     return (
         <MainContainer>
             <ProfileContainer>
                 <img src="https://avatars.githubusercontent.com/u/93332419?v=4" alt="" />
                 <InfoContainer>
-                        <HeaderContainer>
-                            <h2>Carlos Eduardo</h2>
-                            <a href="https://github.com/CarlosSFr">GITHUB <span><FontAwesomeIcon icon={faArrowUpRightFromSquare} /></span></a>
-                        </HeaderContainer>
-                        <p> Tristique volutpat pulvinar vel massa, 
-                            pellentesque egestas. Eu viverra massa quam 
-                            dignissim aenean malesuada suscipit. Nunc, volutpat pulvinar vel mass.
-                        </p>
-                        <FooterContainer>
-                            <div><FontAwesomeIcon icon={faGithub} /> <span>CarlosSFr</span></div>
-                            <div><FontAwesomeIcon icon={faBuilding} /> <span>Valmet - Paper, Pulp and Energy</span></div>
-                            <div><FontAwesomeIcon icon={faUserGroup} /> <span>{12} seguidores</span></div>
-                        </FooterContainer>
+                    <HeaderContainer>
+                        <h2>Carlos Eduardo</h2>
+                        <a href="https://github.com/CarlosSFr">GITHUB <span><FontAwesomeIcon icon={faArrowUpRightFromSquare} /></span></a>
+                    </HeaderContainer>
+                    <p> Tristique volutpat pulvinar vel massa, 
+                        pellentesque egestas. Eu viverra massa quam 
+                        dignissim aenean malesuada suscipit. Nunc, volutpat pulvinar vel mass.
+                    </p>
+                    <FooterContainer>
+                        <div><FontAwesomeIcon icon={faGithub} /> {user && <span>{user.login}</span>}</div>
+                        <div><FontAwesomeIcon icon={faBuilding} /> {user && <span>{user.company}</span>}</div>
+                        <div><FontAwesomeIcon icon={faUserGroup} /> {user && <span>{user.followers} seguidores</span>}</div>
+                    </FooterContainer>
                 </InfoContainer>
             </ProfileContainer>
             <PostsContainer>
