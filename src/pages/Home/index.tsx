@@ -6,7 +6,8 @@ import { SearchInput } from "./components/SearchInput"
 import { Posts } from "../../components/Posts"
 import { NavLink } from "react-router-dom"
 import { useEffect, useState } from "react"
-
+import { api } from "../../lib/UserConfig"
+ 
 interface UserInterface {
     login: string,
     avatar_url: string,
@@ -19,16 +20,20 @@ export function Home(){
 
     const [ user, setUser ] = useState<UserInterface | undefined>(undefined)
 
-    useEffect(() => {
+    async function fetchUserData(){ // Utilizando o Axios ao inves do fetch.
+        const response = await api.get("/users/CarlosSFr")
+        setUser(response.data)
+    }
 
-        fetch("https://api.github.com/users/CarlosSFr")
-        .then(response => response.json())
-        .then(data => {
-            setUser(data)
-        })
-        
+    useEffect(() => {
+        // fetch("https://api.github.com/users/CarlosSFr")
+        // .then(response => response.json())
+        // .then(data => {
+        //     setUser(data)
+        // })
+        fetchUserData()
     }, [])
-    
+    console.log(user)
     return (
         <MainContainer>
             <ProfileContainer>
