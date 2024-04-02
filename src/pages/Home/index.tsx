@@ -12,6 +12,7 @@ interface UserInterface {
     avatar_url: string,
     company: string,
     followers: number,
+    bio: string
 }
 
 export function Home(){
@@ -37,10 +38,7 @@ export function Home(){
                         <h2>Carlos Eduardo</h2>
                         <a href="https://github.com/CarlosSFr">GITHUB <span><FontAwesomeIcon icon={faArrowUpRightFromSquare} /></span></a>
                     </HeaderContainer>
-                    <p> Tristique volutpat pulvinar vel massa, 
-                        pellentesque egestas. Eu viverra massa quam 
-                        dignissim aenean malesuada suscipit. Nunc, volutpat pulvinar vel mass.
-                    </p>
+                    {user && <span>{user.bio}</span>}
                     <FooterContainer>
                         <div><FontAwesomeIcon icon={faGithub} /> {user && <span>{user.login}</span>}</div>
                         <div><FontAwesomeIcon icon={faBuilding} /> {user && <span>{user.company}</span>}</div>
