@@ -16,7 +16,7 @@ interface IssueInterface {
 
 interface UserContextType {
     user: UserInterface,
-    fetchUserData: (query?: string) => Promise<void>,
+    searchIssue: (query?: string) => Promise<void>,
     issues: IssueInterface[],
 }
 
@@ -38,21 +38,27 @@ export function UserProvider({ children }: UserProviderProps){
 
     const [ issues, setIssues ] = useState<IssueInterface[]>([]);
 
-    async function fetchUserData(query?: string){
-        const response = await api.get("/users/CarlosSFr", {
+    async function fetchUserData(){
+        const response = await api.get("/users/CarlosSFr");
+        setUser(response.data);
+    }
+
+    async function searchIssue(query?: string){
+        const response = await api.get("/search/issues", {
             params: {
                 q: query,
             }
         });
-        setUser(response.data);
+        setIssues(response.data);
     }
 
     async function getIssues(){
         const response = await api.get("repos/CarlosSFr/blog-github-api-ts/issues");
         setIssues(response.data);
     }
-    console.log(issues)
+
     useEffect(() => {
+        searchIssue();
         fetchUserData();
         getIssues();
     }, []);
@@ -60,7 +66,7 @@ export function UserProvider({ children }: UserProviderProps){
     return (
         <UserContext.Provider value={{
             user,
-            fetchUserData,
+            searchIssue,
             issues
         }}>
             {children}

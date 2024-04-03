@@ -17,10 +17,10 @@ export function SearchInput(){
         resolver: zodResolver(searchFormSchema),
     })
 
-    const { fetchUserData } = useContext(UserContext)
+    const { searchIssue } = useContext(UserContext)
 
     async function handleSearch(data: SearchFormInputs){
-        await fetchUserData(data.query)
+        await searchIssue(data.query)
     }
 
     return (

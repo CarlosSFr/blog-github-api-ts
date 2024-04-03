@@ -36,7 +36,8 @@ export function Home(){
                 </TitlePosts>
                 <SearchInput />
                 <PostsHomeContainer>
-                    {issues?.map((item) => {
+                    {issues ? 
+                    issues?.map((item) => {
                             return (
                             <NavLink to="postpage" key={issues && item.title}>
                                 <Posts
@@ -45,7 +46,10 @@ export function Home(){
                                 />
                             </NavLink>
                             )
-                        })}
+                        })
+                       :
+                            <></>
+                        }
                 </PostsHomeContainer>
             </PostsContainer>
         </MainContainer>
