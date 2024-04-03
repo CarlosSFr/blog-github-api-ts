@@ -32,24 +32,20 @@ export function Home(){
             <PostsContainer>
                 <TitlePosts>
                     <h3>Publicações</h3>
-                    <span>{4} publicações</span>
+                    <span>{issues.length} publicações</span>
                 </TitlePosts>
                 <SearchInput />
                 <PostsHomeContainer>
-                    <NavLink to="postpage">
-                        {issues?.map((item) => {
+                    {issues?.map((item) => {
                             return (
-                            <Posts
-                                key={issues && item.title}
-                                title={issues && item.title}
-                                content={issues && item.body}
-                            />
+                            <NavLink to="postpage" key={issues && item.title}>
+                                <Posts
+                                    title={issues && item.title}
+                                    content={issues && item.body}
+                                />
+                            </NavLink>
                             )
                         })}
-                    </NavLink>
-                     {/* <Posts /> */}
-                   {/* <Posts />
-                    <Posts /> */}
                 </PostsHomeContainer>
             </PostsContainer>
         </MainContainer>

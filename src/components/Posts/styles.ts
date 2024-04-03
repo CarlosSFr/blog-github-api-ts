@@ -42,7 +42,6 @@ export const PostsContainer = styled.div`
         line-height: 1.6;
         max-height: 6rem;
         overflow: hidden;
-        
     }
 
 
