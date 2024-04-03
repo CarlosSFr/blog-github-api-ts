@@ -40,8 +40,10 @@ export const PostsContainer = styled.div`
         color: ${props => props.theme["base-text"]};
         font-size: 1rem;
         line-height: 1.6;
+        max-height: 6rem;
+        overflow: hidden;
+        
     }
 
-    
 
 `

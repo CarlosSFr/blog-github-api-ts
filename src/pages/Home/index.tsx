@@ -10,7 +10,7 @@ import { UserContext } from "../../contexts/UserContext"
 
 export function Home(){
 
-    const { user } = useContext(UserContext)
+    const { user, issues } = useContext(UserContext)
 
     return (
         <MainContainer>
@@ -36,10 +36,20 @@ export function Home(){
                 </TitlePosts>
                 <SearchInput />
                 <PostsHomeContainer>
-                    <NavLink to="postpage"><Posts /></NavLink>
-                    <Posts />
-                    <Posts />
-                    <Posts />
+                    <NavLink to="postpage">
+                        {issues?.map((item) => {
+                            return (
+                            <Posts
+                                key={issues && item.title}
+                                title={issues && item.title}
+                                content={issues && item.body}
+                            />
+                            )
+                        })}
+                    </NavLink>
+                     {/* <Posts /> */}
+                   {/* <Posts />
+                    <Posts /> */}
                 </PostsHomeContainer>
             </PostsContainer>
         </MainContainer>

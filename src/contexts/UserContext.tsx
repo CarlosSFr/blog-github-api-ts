@@ -9,8 +9,15 @@ interface UserInterface {
     bio: string
 }
 
+interface IssueInterface {
+    title: string,
+    body: string,
+}
+
 interface UserContextType {
-    user: UserInterface | undefined
+    user: UserInterface,
+    fetchUserData: (query?: string) => Promise<void>,
+    issues: IssueInterface[],
 }
 
 interface UserProviderProps {
@@ -21,25 +28,40 @@ export const UserContext = createContext({} as UserContextType)
 
 export function UserProvider({ children }: UserProviderProps){
 
-    const [ user, setUser ] = useState<UserInterface | undefined>(undefined)
+    const [ user, setUser ] = useState<UserInterface>({
+        login: "",
+        avatar_url: "",
+        company: "",
+        followers: 0,
+        bio: ""
+    });
 
-    async function fetchUserData(){ // Utilizando o Axios ao inves do fetch.
-        const response = await api.get("/users/CarlosSFr")
-        setUser(response.data)
+    const [ issues, setIssues ] = useState<IssueInterface[]>([]);
+
+    async function fetchUserData(query?: string){
+        const response = await api.get("/users/CarlosSFr", {
+            params: {
+                q: query,
+            }
+        });
+        setUser(response.data);
     }
 
+    async function getIssues(){
+        const response = await api.get("repos/CarlosSFr/blog-github-api-ts/issues");
+        setIssues(response.data);
+    }
+    console.log(issues)
     useEffect(() => {
-        // fetch("https://api.github.com/users/CarlosSFr")
-        // .then(response => response.json())
-        // .then(data => {
-        //     setUser(data)
-        // })
-        fetchUserData()
-    }, [])
+        fetchUserData();
+        getIssues();
+    }, []);
 
     return (
         <UserContext.Provider value={{
-            user
+            user,
+            fetchUserData,
+            issues
         }}>
             {children}
         </UserContext.Provider>
