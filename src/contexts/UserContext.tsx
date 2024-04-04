@@ -55,7 +55,7 @@ export function UserProvider({ children }: UserProviderProps){
             const userName = "CarlosSFr"
     
             const response = await api.get(`/search/issues?q=${query}%20repo:${userName}/${repo}`);
-            setIssues(response.data);
+            setIssues(response.data.items);
         }else{
             const response = await api.get("repos/CarlosSFr/blog-github-api-ts/issues");
             setIssues(response.data);
