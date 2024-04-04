@@ -16,7 +16,7 @@ interface IssueInterface {
 
 interface UserContextType {
     user: UserInterface,
-    searchIssue: (query?: string) => Promise<void>,
+    getIssues: (query?: string) => Promise<void>,
     issues: IssueInterface[],
 }
 
@@ -43,22 +43,26 @@ export function UserProvider({ children }: UserProviderProps){
         setUser(response.data);
     }
 
-    async function searchIssue(query?: string){
-        const response = await api.get("/search/issues", {
-            params: {
-                q: query,
-            }
-        });
-        setIssues(response.data);
-    }
+    // async function searchIssue(){
+        
+    //     setIssues(response.data);
+    // }
 
-    async function getIssues(){
-        const response = await api.get("repos/CarlosSFr/blog-github-api-ts/issues");
-        setIssues(response.data);
+    async function getIssues(query?: string){
+        
+        if(query){
+            const repo = "blog-github-api-ts"
+            const userName = "CarlosSFr"
+    
+            const response = await api.get(`/search/issues?q=${query}%20repo:${userName}/${repo}`);
+            setIssues(response.data);
+        }else{
+            const response = await api.get("repos/CarlosSFr/blog-github-api-ts/issues");
+            setIssues(response.data);
+        } 
     }
 
     useEffect(() => {
-        searchIssue();
         fetchUserData();
         getIssues();
     }, []);
@@ -66,7 +70,7 @@ export function UserProvider({ children }: UserProviderProps){
     return (
         <UserContext.Provider value={{
             user,
-            searchIssue,
+            getIssues,
             issues
         }}>
             {children}
