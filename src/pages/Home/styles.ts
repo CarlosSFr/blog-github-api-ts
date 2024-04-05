@@ -59,13 +59,21 @@ export const FooterContainer = styled.div`
     align-items: center;    
     gap: 1.5rem;
 
-    svg{
-        color: ${props => props.theme["base-label"]};
-    }
+    div{
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
 
-    span{
-        color: ${props => props.theme["base-subtitle"]};
+        svg{
+            color: ${props => props.theme["base-label"]};
+        }
+
+        span{
+            color: ${props => props.theme["base-subtitle"]};
+        }
+
     }
+    
 
 `
 export const PostsContainer = styled.div`

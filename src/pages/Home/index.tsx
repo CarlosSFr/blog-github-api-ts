@@ -11,12 +11,7 @@ import { UserContext } from "../../contexts/UserContext"
 export function Home(){
 
     const { user, issues } = useContext(UserContext)
-
-    function handleClickPost(title: string, body: string){
-        console.log(title);
-        console.log(body)
-    }
-
+    
     return (
         <MainContainer>
             <ProfileContainer>
@@ -47,12 +42,12 @@ export function Home(){
                             <NavLink 
                             to="postpage" 
                             key={issues && item.title} 
-                            state={{title: item.title, body: item.body}}
-                            onClick={() => handleClickPost(item.title, item.body)} 
+                            state={{title: item.title, body: item.body, created_at: item.created_at}}
                             >
                                 <Posts
                                     title={issues && item.title}
                                     content={issues && item.body}
+                                    postDate={issues && item.created_at}
                                 />
                             </NavLink>
                             )

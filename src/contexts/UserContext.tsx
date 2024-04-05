@@ -12,6 +12,7 @@ interface UserInterface {
 interface IssueInterface {
     title: string,
     body: string,
+    created_at: Date,
 }
 
 interface UserContextType {
@@ -42,11 +43,6 @@ export function UserProvider({ children }: UserProviderProps){
         const response = await api.get("/users/CarlosSFr");
         setUser(response.data);
     }
-
-    // async function searchIssue(){
-        
-    //     setIssues(response.data);
-    // }
 
     async function getIssues(query?: string){
         

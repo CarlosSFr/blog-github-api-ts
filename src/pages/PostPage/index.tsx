@@ -5,13 +5,15 @@ import { DescriptionContainer, DescriptionFooter, DescriptionHeader, PostPageCon
 import { NavLink, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
+import { ptBR } from "date-fns/locale/pt-BR"
+import { formatDistanceToNow } from "date-fns"
 
 
 export function PostPage(){
 
     const { user } = useContext( UserContext )
     const location = useLocation()
-    const { title, body } = location.state;
+    const { title, body, created_at } = location.state;
 
     return (
         <PostPageContainer>
@@ -31,7 +33,10 @@ export function PostPage(){
                 <h1>{title}</h1>
                 <DescriptionFooter>
                     <div><FontAwesomeIcon icon={faGithub} /> <span>{user.login}</span></div>
-                    <div><FontAwesomeIcon icon={faCalendar} /> <span>Há 1 dia</span></div>
+                    <div><FontAwesomeIcon icon={faCalendar} /> <span>{formatDistanceToNow(created_at, {
+                        addSuffix: true,
+                        locale: ptBR,
+                    })}</span></div>
                     <div><FontAwesomeIcon icon={faComment} /> <span>{user.followers} seguidores</span></div>
                 </DescriptionFooter>
             </DescriptionContainer>
