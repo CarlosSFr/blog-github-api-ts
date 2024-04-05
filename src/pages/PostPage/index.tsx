@@ -2,10 +2,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons"
 import { faChevronLeft, faArrowUpRightFromSquare, faCalendar, faComment } from "@fortawesome/free-solid-svg-icons"
 import { DescriptionContainer, DescriptionFooter, DescriptionHeader, PostPageContainer, PostsDescriptionContainer } from "./styles";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
 
 export function PostPage(){
+
+    const { user } = useContext( UserContext )
+    const location = useLocation()
+    const { title, body } = location.state;
+
     return (
         <PostPageContainer>
             <DescriptionContainer>
@@ -21,28 +28,16 @@ export function PostPage(){
                         <span>VER NO GITHUB</span>
                     </div> 
                 </DescriptionHeader>
-                <h1>Project title developer</h1>
+                <h1>{title}</h1>
                 <DescriptionFooter>
-                    <div><FontAwesomeIcon icon={faGithub} /> <span>CarlosSFr</span></div>
+                    <div><FontAwesomeIcon icon={faGithub} /> <span>{user.login}</span></div>
                     <div><FontAwesomeIcon icon={faCalendar} /> <span>Há 1 dia</span></div>
-                    <div><FontAwesomeIcon icon={faComment} /> <span>{12} seguidores</span></div>
+                    <div><FontAwesomeIcon icon={faComment} /> <span>{user.followers} seguidores</span></div>
                 </DescriptionFooter>
             </DescriptionContainer>
             <PostsDescriptionContainer>
                 <p>
-                Programming languages all have built-in 
-                data structures, but these often differ from 
-                one language to another. This article attempts 
-                to list the built-in data structures available in 
-                JavaScript and what properties they have. These can 
-                be used to build other data structures. Wherever possible, 
-                comparisons with other languages are drawn.
-
-                Dynamic typing
-                JavaScript is a loosely typed and dynamic language. 
-                Variables in JavaScript are not directly associated with
-                 any particular value type, and any variable can be assigned 
-                 (and re-assigned) values of all types:
+                {body}
 
                 </p>
             </PostsDescriptionContainer>

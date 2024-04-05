@@ -12,6 +12,11 @@ export function Home(){
 
     const { user, issues } = useContext(UserContext)
 
+    function handleClickPost(title: string, body: string){
+        console.log(title);
+        console.log(body)
+    }
+
     return (
         <MainContainer>
             <ProfileContainer>
@@ -39,7 +44,12 @@ export function Home(){
                     {issues.length > 0 ? 
                     issues?.map((item) => {
                             return (
-                            <NavLink to="postpage" key={issues && item.title}>
+                            <NavLink 
+                            to="postpage" 
+                            key={issues && item.title} 
+                            state={{title: item.title, body: item.body}}
+                            onClick={() => handleClickPost(item.title, item.body)} 
+                            >
                                 <Posts
                                     title={issues && item.title}
                                     content={issues && item.body}
